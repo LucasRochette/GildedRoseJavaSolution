@@ -1,6 +1,9 @@
 package com.gildedrose;
 
 class GildedRose {
+    public static final int MINIMUM_QUALITY = 0;
+    public static final int MAXIMUM_QUALITY = 50;
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -11,7 +14,7 @@ class GildedRose {
         for (Item item : items) {
             if (!item.name.equals("Aged Brie")
                     && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.quality > 0) {
+                if (item.quality > MINIMUM_QUALITY) {
                     if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
                         decreaseQuality(item);
                     }
@@ -43,13 +46,13 @@ class GildedRose {
             if (item.sellIn < 0) {
                 if (!item.name.equals("Aged Brie")) {
                     if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.quality > 0) {
+                        if (item.quality > MINIMUM_QUALITY) {
                             if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
                                 decreaseQuality(item);
                             }
                         }
                     } else {
-                        item.quality = 0;
+                        item.quality = MINIMUM_QUALITY;
                     }
                 } else {
                     if (isUnderHighestQualityValue(item)) {
@@ -69,6 +72,6 @@ class GildedRose {
     }
 
     private boolean isUnderHighestQualityValue(Item item) {
-        return item.quality < 50;
+        return item.quality < MAXIMUM_QUALITY;
     }
 }

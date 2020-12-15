@@ -134,4 +134,28 @@ class GildedRoseTest {
         assertEquals(-1, app.items[0].sellIn);
         assertEquals(0, app.items[0].quality);
     }
+
+    @Test
+    public void should_lower_conjured_mana_cake_quality_twice_as_fast() throws Exception {
+        Item[] items = new Item[]{
+                new ItemBuilder().called("Conjured Mana Cake").toBeSoldIn(10).ofQuality(10).build()};
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(9, app.items[0].sellIn);
+        assertEquals(8, app.items[0].quality);
+    }
+
+    @Test
+    public void should_never_lower_conjured_mana_cake_quality_below_zero() throws Exception {
+        Item[] items = new Item[]{
+                new ItemBuilder().called("Conjured Mana Cake").toBeSoldIn(10).ofQuality(0).build()};
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(9, app.items[0].sellIn);
+        assertEquals(0, app.items[0].quality);
+    }
 }
